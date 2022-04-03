@@ -1,20 +1,12 @@
-// .storybook/main.js
-
 module.exports = {
-  addons: ['@storybook/addon-essentials'],
-  babel: async (options) => ({
-    // Update your babel configuration here
-    ...options,
-  }),
-  framework: '@storybook/react',
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)",
-    "../src/components/**/stories.tsx"
-  ],
-  webpackFinal: async (config, { configType }) => {
-    // Make whatever fine-grained changes you need
-    // Return the altered config
-    return config;
+  staticDirs: ['../public'],
+  stories: ['../src/components/**/stories.tsx'],
+  addons: ['@storybook/addon-essentials', 'storybook-addon-next-router'],
+  core: {
+    builder: 'webpack5'
   },
-};
+  webpackFinal: (config) => {
+    config.resolve.modules.push(`${process.cwd()}/src`)
+    return config
+  }
+}
